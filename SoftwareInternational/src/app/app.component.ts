@@ -1,14 +1,23 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {AngularFireDatabase} from "@angular/fire/compat/database";
+
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'SoftwareInternational';
+  constructor(private db: AngularFireDatabase) {}
+
+  writeData() {
+    this.db.list('/items').push({ name: 'Item 1', price: 10 });
+  }
+
+  readData() {
+    this.db.list('/items').valueChanges().subscribe(items => {
+      console.log(items);
+    });
+  }
 }
