@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {AppModule} from "./app.module";
 
 
 @Component({
@@ -9,15 +10,4 @@ import {AngularFireDatabase} from "@angular/fire/compat/database";
 })
 export class AppComponent {
   title = 'SoftwareInternational';
-  constructor(private db: AngularFireDatabase) {}
-
-  writeData() {
-    this.db.list('/items').push({ name: 'Item 1', price: 10 });
-  }
-
-  readData() {
-    this.db.list('/items').valueChanges().subscribe(items => {
-      console.log(items);
-    });
-  }
 }
