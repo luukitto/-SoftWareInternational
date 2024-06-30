@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import {AngularFireDatabase} from "@angular/fire/compat/database";
-import {AppModule} from "./app.module";
 
 
 @Component({
