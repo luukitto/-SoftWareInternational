@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent implements  OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'price','quantity','actions'];
+  displayedColumns: string[] = ['name', 'price','quantity','sell','sold','actions'];
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -50,12 +50,37 @@ export class ProductListComponent implements  OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  sellProduct(id: string, quantity: any): void {
+    const sellQuantity = parseInt(quantity, 10);
+
+    if (isNaN(sellQuantity) || sellQuantity <= 0) {
+      alert("Please enter a valid quantity to sell.");
+      return;
+    }
+
+    this.productService.getProductById(id).subscribe(product => {
+      const updatedQuantity = product.quantity - sellQuantity;
+      const updatedSold = (product.sold || 0) + sellQuantity;
+
+      if (updatedQuantity < 0) {
+        alert("Not enough stock available.");
+        return;
+      }
+
+      this.productService.updateProduct({ ...product, quantity: updatedQuantity, sold: updatedSold }).subscribe(() => {
+        this.getProducts();
+      });
+    });
+  }
+
 
   editProduct(id: string): void {
     this.router.navigate(['/product/edit', id]);
   }
 
   deleteProduct(id: string): void {
-
+    this.productService.deleteProduct(id).subscribe(() => {
+      this.getProducts();
+    });
   }
 }

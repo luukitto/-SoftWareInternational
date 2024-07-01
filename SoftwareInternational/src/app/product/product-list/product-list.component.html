@@ -13,9 +13,22 @@
       <td mat-cell *matCellDef="let product" class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"> {{ product.name }} </td>
     </ng-container>
 
+    <ng-container matColumnDef="sold">
+      <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Sold </th>
+      <td mat-cell *matCellDef="let product" class="custom-cell px-6 py-4 whitespace-no-wrap border-b border-gray-200"> {{ product.sold || 0 }} </td>
+    </ng-container>
+
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Price </th>
       <td mat-cell *matCellDef="let product" class="px-6 py-4 whitespace-no-wrap border-b border-gray-200"> {{ product.price }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="sell">
+      <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Sell </th>
+      <td mat-cell *matCellDef="let product" class="custom-cell px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex items-center">
+        <input matInput type="number" min="1" #sellQuantity class="w-20 mr-2 p-2 border border-gray-300 rounded">
+        <button mat-raised-button color="accent" (click)="sellProduct(product.id, sellQuantity.value)" class="bg-blue-500 text-white px-4 py-2 rounded">Sell</button>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
