@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {ProductService} from "../../services/product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-list',
@@ -14,7 +15,9 @@ export class ProductListComponent implements  OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -49,10 +52,10 @@ export class ProductListComponent implements  OnInit, AfterViewInit {
 
 
   editProduct(id: string): void {
-    // Navigate to edit form
+    this.router.navigate(['/product/edit', id]);
   }
 
   deleteProduct(id: string): void {
-    // Delete product logic
+
   }
 }

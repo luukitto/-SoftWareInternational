@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3000/firebase'; // Adjust the API URL as needed
+  private apiUrl = 'http://localhost:3000/firebase';
 
   constructor(private http: HttpClient) {}
 
@@ -15,7 +15,7 @@ export class ProductService {
   }
 
   getProductById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/read/${id}`);
   }
 
   addProduct(product: any): Observable<any> {
@@ -23,10 +23,10 @@ export class ProductService {
   }
 
   updateProduct(product: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${product.id}`, product);
+    return this.http.put<any>(`${this.apiUrl}/update/${product.id}`, product);
   }
 
   deleteProduct(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/delete/${id}`);
   }
 }

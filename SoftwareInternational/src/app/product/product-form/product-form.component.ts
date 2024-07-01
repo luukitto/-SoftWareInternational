@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ProductService} from "../../services/product.service";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-product-form',
@@ -38,11 +39,14 @@ export class ProductFormComponent implements OnInit {
   async onSubmit(): Promise<void> {
     if (this.productForm.valid) {
       if (this.isEditMode) {
-        await this.productService.updateProduct(this.productForm.value).toPromise();
+        await firstValueFrom(this.productService.updateProduct({
+          id: this.route.snapshot.paramMap.get('id'),
+          ...this.productForm.value
+        }));
       } else {
-        await this.productService.addProduct(this.productForm.value).toPromise();
+        await firstValueFrom(this.productService.addProduct(this.productForm.value));
       }
-      this.router.navigate(['/product']);
+      await this.router.navigate(['/product']);
     }
   }
 

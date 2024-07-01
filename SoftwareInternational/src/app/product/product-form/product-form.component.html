@@ -1,22 +1,22 @@
-<div>
-  <h2>{{ isEditMode ? 'EDIT_PRODUCT' : 'ADD_PRODUCT'  }}</h2>
+<div class="p-4">
+  <h2 class="text-xl font-semibold mb-4">{{ isEditMode ? 'Edit Product' : 'Add Product' }}</h2>
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <mat-label>{{ 'PRODUCT_NAME'  }}</mat-label>
+    <mat-form-field class="w-full mb-4">
+      <mat-label>Product Name</mat-label>
       <input matInput formControlName="name" required>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>{{ 'PRICE' }}</mat-label>
+    <mat-form-field class="w-full mb-4">
+      <mat-label>Price</mat-label>
       <input matInput formControlName="price" type="number" required>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>{{ 'QUANTITY' }}</mat-label>
+    <mat-form-field class="w-full mb-4">
+      <mat-label>Quantity</mat-label>
       <input matInput formControlName="quantity" type="number" required>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">{{ 'SAVE'  }}</button>
-    <button mat-raised-button color="warn" type="button" (click)="onCancel()">{{ 'CANCEL' }}</button>
+    <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'Update' : 'Save' }}</button>
+    <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancel</button>
   </form>
 </div>
