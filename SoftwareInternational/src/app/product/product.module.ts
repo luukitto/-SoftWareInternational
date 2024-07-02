@@ -14,7 +14,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {ProductComponent} from "./product.component";
+import {Routes} from "@angular/router";
 
+const routes: Routes = [
+  { path: '', component: ProductListComponent }
+];
 
 @NgModule({
   declarations: [

@@ -7,7 +7,6 @@ import {SalesManagerListComponent} from "./sales-manager-list/sales-manager-list
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
   { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
   { path: 'sales-managers', component: SalesManagerListComponent, resolve: { salesManagers: SalesManagerResolver }, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login' }

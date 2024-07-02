@@ -22,7 +22,7 @@ export class LoginComponent {
         const decodedToken = jwtDecode<JwtPayload>(token || '') || null;
         const currentUser = { ...decodedToken, access_token: response.access_token };
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        this.router.navigate(['']);
+        this.router.navigate(['product']);
       },
       err => console.error(err)
     );
