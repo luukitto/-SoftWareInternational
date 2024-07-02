@@ -15,6 +15,7 @@ export class SalesManagersService {
   }
 
   addUser(user: any): Observable<any> {
+    console.log('Sending addUser request with:', user);
     return this.http.post<any>(`${this.apiUrl}/addUser`, user);
   }
 

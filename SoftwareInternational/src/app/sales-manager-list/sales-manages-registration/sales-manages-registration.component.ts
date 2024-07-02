@@ -34,9 +34,14 @@ export class SalesManagesRegistrationComponent {
 
   onSubmit(): void {
     if (this.registrationForm.valid) {
+      console.log('Form is valid, submitting:', this.registrationForm.value); // Log form submission
       this.salesManagerService.addUser(this.registrationForm.value).subscribe(() => {
         this.dialogRef.close(true);
+      }, (error) => {
+        console.error('Error adding user:', error); // Log any errors
       });
+    } else {
+      console.log('Form is invalid'); // Log invalid form
     }
   }
 
