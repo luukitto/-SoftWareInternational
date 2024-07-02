@@ -26,6 +26,10 @@ export class ProductService {
     return this.http.put<any>(`${this.apiUrl}/update/${product.id}`, product);
   }
 
+  updateProductSold(productId: string, soldQuantity: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/updateProductSold/${productId}`, {soldQuantity: Number(soldQuantity)})
+  }
+
   sellProduct(id: string, quantity: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/sell/${id}`, { quantity });
   }

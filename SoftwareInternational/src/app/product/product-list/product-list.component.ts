@@ -59,6 +59,8 @@ export class ProductListComponent implements  OnInit, AfterViewInit {
       return;
     }
 
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}')
+
     this.productService.getProductById(productId).subscribe(product => {
       const updatedQuantity = product.quantity - quantity;
       if (updatedQuantity < 0) {
@@ -67,8 +69,10 @@ export class ProductListComponent implements  OnInit, AfterViewInit {
       }
 
       this.productService.updateProduct({ ...product, quantity: updatedQuantity }).subscribe(() => {
-        this.salesManagersService.addSale(this.currentUser.sub, { name: product.name, price: product.price, quantity: quantity }).subscribe(() => {
-          this.getProducts();
+        this.salesManagersService.addSale(currentUser.sub, { name: product.name, price: product.price, quantity: quantity }).subscribe(() => {
+          this.productService.updateProductSold(productId, quantity).subscribe(() => {
+            this.getProducts();
+          })
         });
       });
     });
