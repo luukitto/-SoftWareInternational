@@ -21,10 +21,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {SalesManagerListComponent} from "./sales-manager-list/sales-manager-list.component";
+import {SoldProductsPopupModule} from "./sales-manager-list/view-sold-product/view-sold-product.module";
+import {AddSalePopupComponent} from "./sales-manager-list/add-sale-popup/add-sale-popup.component";
 
-// export function HttpLoaderFactory(http: HttpClient) {
-//   return new TranslateHttpLoader(http);
-// }
 
 
 
@@ -33,6 +33,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   declarations: [
     AppComponent,
     LoginComponent,
+    SalesManagerListComponent,
+    AddSalePopupComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     // TranslateModule.forRoot({
     //   loader: {
     //     provide: TranslateLoader,
@@ -61,7 +64,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatButtonModule
+    MatButtonModule,
+    SoldProductsPopupModule
   ],
   providers: [
     AuthService,

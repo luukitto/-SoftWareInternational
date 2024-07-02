@@ -1,0 +1,24 @@
+<div class="p-4">
+  <h2 class="text-xl font-semibold mb-4">Sold Products</h2>
+  <table class="min-w-full bg-white border">
+    <thead>
+    <tr>
+      <th class="border px-4 py-2">Product Name</th>
+      <th class="border px-4 py-2">Price</th>
+      <th class="border px-4 py-2">Quantity</th>
+      <th class="border px-4 py-2">Sale Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of soldProducts">
+      <td class="border px-4 py-2">{{ product.name }}</td>
+      <td class="border px-4 py-2">{{ product.price }}</td>
+      <td class="border px-4 py-2">{{ product.quantity }}</td>
+      <td class="border px-4 py-2">{{ product.saleDate | date:'dd/MM/yyyy HH:mm' }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="flex justify-end mt-4">
+    <button mat-raised-button color="primary" (click)="onClose()" class="bg-blue-500 text-white px-4 py-2 rounded">Close</button>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="p-4">
+  <h2 class="text-xl font-semibold mb-4">Register New Manager</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div>
+      <label class="block">Username</label>
+      <input matInput formControlName="username" class="w-full border p-2 rounded" />
+    </div>
+    <div>
+      <label class="block">Password</label>
+      <input matInput type="password" formControlName="password" class="w-full border p-2 rounded" />
+    </div>
+    <div>
+      <label class="block">First Name</label>
+      <input matInput formControlName="firstName" class="w-full border p-2 rounded" />
+    </div>
+    <div>
+      <label class="block">Last Name</label>
+      <input matInput formControlName="lastName" class="w-full border p-2 rounded" />
+    </div>
+    <div class="flex justify-end space-x-2">
+      <button mat-raised-button color="primary" type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Register</button>
+      <button mat-raised-button color="warn" type="button" (click)="onCancel()" class="bg-red-500 text-white px-4 py-2 rounded">Cancel</button>
+    </div>
+  </form>
+</div>

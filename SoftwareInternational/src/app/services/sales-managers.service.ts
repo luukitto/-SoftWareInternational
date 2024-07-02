@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class SalesManagersService {
   private apiUrl = 'http://localhost:3000/firebase';
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any[]> {
+  getSalesManagers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/readUsers`);
   }
 
@@ -24,5 +24,9 @@ export class UserService {
 
   getUserById(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/getUserById/${id}`);
+  }
+
+  getFilteredSalesManagers(filters: any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiUrl}/filter`, filters);
   }
 }

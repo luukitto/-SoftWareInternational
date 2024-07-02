@@ -3,6 +3,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {ProductService} from "../../services/product.service";
 import {Router} from "@angular/router";
+import {SalesManagersService} from "../../services/sales-managers.service";
 
 @Component({
   selector: 'app-product-list',
@@ -12,16 +13,18 @@ import {Router} from "@angular/router";
 export class ProductListComponent implements  OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'price','quantity','sell','sold','actions'];
   dataSource = new MatTableDataSource<any>();
+  currentUser: any
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
+    private salesManagersService: SalesManagersService,
     private productService: ProductService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.getProducts();
-
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
   }
 
   ngAfterViewInit(): void {
@@ -50,28 +53,27 @@ export class ProductListComponent implements  OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  sellProduct(id: string, quantity: any): void {
-    const sellQuantity = parseInt(quantity, 10);
-
-    if (isNaN(sellQuantity) || sellQuantity <= 0) {
+  sellProduct(productId: string, quantity: any): void {
+    if (quantity <= 0) {
       alert("Please enter a valid quantity to sell.");
       return;
     }
 
-    this.productService.getProductById(id).subscribe(product => {
-      const updatedQuantity = product.quantity - sellQuantity;
-      const updatedSold = (product.sold || 0) + sellQuantity;
-
+    this.productService.getProductById(productId).subscribe(product => {
+      const updatedQuantity = product.quantity - quantity;
       if (updatedQuantity < 0) {
         alert("Not enough stock available.");
         return;
       }
 
-      this.productService.updateProduct({ ...product, quantity: updatedQuantity, sold: updatedSold }).subscribe(() => {
-        this.getProducts();
+      this.productService.updateProduct({ ...product, quantity: updatedQuantity }).subscribe(() => {
+        this.salesManagersService.addSale(this.currentUser.sub, { name: product.name, price: product.price, quantity: quantity }).subscribe(() => {
+          this.getProducts();
+        });
       });
     });
   }
+
 
 
   editProduct(id: string): void {
